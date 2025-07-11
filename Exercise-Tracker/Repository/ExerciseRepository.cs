@@ -1,6 +1,3 @@
 ﻿namespace Exercise_Tracker.Repository;
 
-public class ExerciseRepository
-{
-    
-}
+public class ExerciseRepository : IExerciseRepository { }

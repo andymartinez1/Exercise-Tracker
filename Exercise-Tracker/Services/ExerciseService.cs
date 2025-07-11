@@ -1,6 +1,3 @@
 ﻿namespace Exercise_Tracker.Services;
 
-public class ExerciseService
-{
-    
-}
+public class ExerciseService : IExerciseService { }
