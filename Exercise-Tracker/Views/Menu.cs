@@ -52,12 +52,15 @@ public class Menu
                     break;
                 case MenuOptions.AddNewExercise:
                     AnsiConsole.Clear();
+                    _exerciseController.AddExercise();
                     break;
                 case MenuOptions.UpdateExercise:
                     AnsiConsole.Clear();
+                    _exerciseController.UpdateExercise();
                     break;
                 case MenuOptions.DeleteExercise:
                     AnsiConsole.Clear();
+                    _exerciseController.DeleteExercise();
                     break;
                 case MenuOptions.Exit:
                     AnsiConsole.Clear();

@@ -31,4 +31,29 @@ public class ExerciseController
 
         UserInterface.ShowExerciseDetails(selectedShift);
     }
+
+    public void AddExercise()
+    {
+        _exerciseService.AddExercise();
+    }
+
+    public void UpdateExercise()
+    {
+        var exercises = _exerciseService.GetAllExercises();
+
+        var exerciseId = Helpers.GetExerciseId(exercises);
+
+        var shiftToUpdate = _exerciseService.GetExerciseById(exerciseId);
+
+        _exerciseService.UpdateExercise(shiftToUpdate);
+    }
+
+    public void DeleteExercise()
+    {
+        var exercises = _exerciseService.GetAllExercises();
+
+        var exerciseId = Helpers.GetExerciseId(exercises);
+
+        _exerciseService.DeleteExercise(exerciseId);
+    }
 }

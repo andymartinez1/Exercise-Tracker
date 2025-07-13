@@ -1,5 +1,7 @@
 ﻿using Exercise_Tracker.Models;
 using Exercise_Tracker.Repository;
+using Exercise_Tracker.Utils;
+using Spectre.Console;
 
 namespace Exercise_Tracker.Services;
 
@@ -22,33 +24,54 @@ public class ExerciseService : IExerciseService
         return _repository.GetExerciseById(id);
     }
 
-    public void AddExercise(Exercise exercise)
+    public void AddExercise()
     {
-        if (exercise == null)
+        var dates = Helpers.GetDates();
+
+        var exercise = new Exercise
         {
-            throw new ArgumentNullException(nameof(exercise), "Exercise cannot be null");
-        }
+            StartTime = dates[0],
+            EndTime = dates[1],
+            Comments = AnsiConsole.Ask<string>("Enter Exercise Comments: "),
+        };
 
         _repository.AddExercise(exercise);
     }
 
     public void UpdateExercise(Exercise exercise)
     {
-        if (exercise == null)
+        var updateStartTime = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("Would you like to update the exercise start and end time?")
+                .AddChoices("Yes", "No")
+        );
+        if (updateStartTime == "Yes")
         {
-            throw new ArgumentNullException(nameof(exercise), "Exercise cannot be null");
+            var dates = Helpers.GetDates();
+            exercise.StartTime = dates[0];
+            exercise.EndTime = dates[1];
         }
+        else
+        {
+            exercise.StartTime = exercise.StartTime;
+            exercise.EndTime = exercise.EndTime;
+        }
+
+        var updateComments = AnsiConsole.Prompt(
+            new SelectionPrompt<string>()
+                .Title("Would you like to update the exercise comments? ")
+                .AddChoices("Yes", "No")
+        );
+        if (updateComments == "Yes")
+            exercise.Comments = AnsiConsole.Ask<string>("Enter Exercise Comments: ");
+        else
+            exercise.Comments = exercise.Comments;
 
         _repository.UpdateExercise(exercise);
     }
 
     public void DeleteExercise(int id)
     {
-        if (id <= 0)
-        {
-            throw new ArgumentException("Invalid exercise ID", nameof(id));
-        }
-
         _repository.DeleteExercise(id);
     }
 }

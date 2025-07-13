@@ -8,7 +8,7 @@ public interface IExerciseService
 
     Exercise GetExerciseById(int id);
 
-    void AddExercise(Exercise exercise);
+    void AddExercise();
 
     void UpdateExercise(Exercise exercise);
 
