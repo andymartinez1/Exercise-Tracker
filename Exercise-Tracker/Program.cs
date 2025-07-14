@@ -4,13 +4,12 @@ using Exercise_Tracker.Repository;
 using Exercise_Tracker.Services;
 using Exercise_Tracker.Views;
 
-ExerciseDbContext dbContext = new ExerciseDbContext();
+DataConnection connection = new DataConnection();
 
-dbContext.Database.EnsureDeleted();
-dbContext.Database.EnsureCreated();
+connection.CreateDatabase();
 
 Menu menu = new Menu(
-    new ExerciseController(new ExerciseService(new ExerciseRepository(dbContext)))
+    new ExerciseController(new ExerciseService(new ExerciseRepository(connection)))
 );
 
 menu.MainMenu();

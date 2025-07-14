@@ -1,50 +1,106 @@
-﻿using Exercise_Tracker.Data;
+﻿using Dapper;
+using Exercise_Tracker.Data;
 using Exercise_Tracker.Models;
+using Microsoft.Data.SqlClient;
 
 namespace Exercise_Tracker.Repository;
 
 public class ExerciseRepository : IExerciseRepository<Exercise>
 {
-    private readonly ExerciseDbContext _context;
+    private readonly DataConnection _connection;
 
-    public ExerciseRepository(ExerciseDbContext context)
+    public ExerciseRepository(DataConnection connection)
     {
-        _context = context;
+        _connection = connection;
     }
 
     public List<Exercise> GetAllExercises()
     {
-        return _context.Exercises.ToList();
+        using (var connection = new SqlConnection(_connection.ConnectionString))
+        {
+            connection.Open();
+
+            var selectQuery = "SELECT * FROM Exercises";
+
+            var exercises = connection.Query<Exercise>(selectQuery).ToList();
+
+            return exercises;
+        }
     }
 
     public Exercise GetExerciseById(int id)
     {
-        return _context.Exercises.Find(id);
+        using (var connection = new SqlConnection(_connection.ConnectionString))
+        {
+            connection.Open();
+
+            var selectQuery = "SELECT * FROM Exercises WHERE Id = @Id";
+
+            var exercises = connection.Query<Exercise>(selectQuery, new { Id = id });
+
+            return exercises.FirstOrDefault();
+        }
     }
 
     public void AddExercise(Exercise exercise)
     {
-        _context.Exercises.Add(exercise);
-        _context.SaveChanges();
+        using (var connection = new SqlConnection(_connection.ConnectionString))
+        {
+            connection.Open();
+
+            var insertQuery =
+                @"
+                INSERT INTO Exercises (StartTime, EndTime, Comments)
+                VALUES (@StartTime, @EndTime, @Comments)
+                ";
+
+            connection.Execute(
+                insertQuery,
+                new
+                {
+                    exercise.StartTime,
+                    exercise.EndTime,
+                    exercise.Comments,
+                }
+            );
+        }
     }
 
     public void UpdateExercise(Exercise exercise)
     {
-        _context.Exercises.Update(exercise);
-        _context.SaveChanges();
+        using (var connection = new SqlConnection(_connection.ConnectionString))
+        {
+            connection.Open();
+
+            var updateQuery =
+                @"
+                UPDATE Exercises 
+                SET StartTime = @StartTime, EndTime = @EndTime, Comments = @Comments
+                WHERE Id = @Id
+                ";
+
+            connection.Execute(
+                updateQuery,
+                new
+                {
+                    exercise.StartTime,
+                    exercise.EndTime,
+                    exercise.Comments,
+                    exercise.Id,
+                }
+            );
+        }
     }
 
     public void DeleteExercise(int id)
     {
-        var exercise = GetExerciseById(id);
-        if (exercise != null)
+        using (var connection = new SqlConnection(_connection.ConnectionString))
         {
-            _context.Exercises.Remove(exercise);
-            _context.SaveChanges();
-        }
-        else
-        {
-            throw new KeyNotFoundException($"Exercise with ID {id} not found.");
+            connection.Open();
+
+            var deleteQuery = "DELETE FROM Exercises WHERE Id = @Id";
+
+            connection.Execute(deleteQuery, new { Id = id });
         }
     }
 }
