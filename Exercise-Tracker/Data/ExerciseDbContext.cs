@@ -39,6 +39,20 @@ public class ExerciseDbContext : DbContext
                     StartTime = new DateTime(2025, 7, 17, 21, 0, 0),
                     EndTime = new DateTime(2025, 7, 17, 21, 30, 0),
                     Comments = "Evening workout session.",
+                },
+                new Exercise
+                {
+                    Id = 4,
+                    StartTime = new DateTime(2025, 7, 18, 21, 0, 0),
+                    EndTime = new DateTime(2025, 7, 18, 21, 30, 0),
+                    Comments = "Evening running session.",
+                },
+                new Exercise
+                {
+                    Id = 5,
+                    StartTime = new DateTime(2025, 7, 19, 16, 15, 0),
+                    EndTime = new DateTime(2025, 7, 19, 16, 45, 0),
+                    Comments = "Afternoon swimming session.",
                 }
             );
     }

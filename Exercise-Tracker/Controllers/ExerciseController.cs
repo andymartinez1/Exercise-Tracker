@@ -29,7 +29,10 @@ public class ExerciseController
 
         var selectedShift = _exerciseService.GetExerciseById(exerciseId);
 
-        UserInterface.ShowExerciseDetails(selectedShift);
+        if (exercises.Count > 0)
+            UserInterface.ShowExerciseDetails(selectedShift);
+        else
+            return;
     }
 
     public void AddExercise()
@@ -45,7 +48,10 @@ public class ExerciseController
 
         var shiftToUpdate = _exerciseService.GetExerciseById(exerciseId);
 
-        _exerciseService.UpdateExercise(shiftToUpdate);
+        if (exercises.Count > 0)
+            _exerciseService.UpdateExercise(shiftToUpdate);
+        else
+            return;
     }
 
     public void DeleteExercise()
@@ -54,6 +60,9 @@ public class ExerciseController
 
         var exerciseId = Helpers.GetExerciseId(exercises);
 
-        _exerciseService.DeleteExercise(exerciseId);
+        if (exercises.Count > 0)
+            _exerciseService.DeleteExercise(exerciseId);
+        else
+            return;
     }
 }

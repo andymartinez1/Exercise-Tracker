@@ -73,5 +73,8 @@ public class ExerciseService : IExerciseService
     public void DeleteExercise(int id)
     {
         _repository.DeleteExercise(id);
+
+        AnsiConsole.Clear();
+        AnsiConsole.MarkupLine($"[green]Exercise {id} deleted successfully![/]");
     }
 }
