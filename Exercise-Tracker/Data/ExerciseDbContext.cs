@@ -1,5 +1,6 @@
 ﻿using Exercise_Tracker.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Exercise_Tracker.Data;
 
@@ -9,9 +10,11 @@ public class ExerciseDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseSqlServer(
-            "Server=(localdb)\\MSSQLLocalDB;Initial Catalog=exercise_db;Trusted_Connection=True"
-        );
+        var configuration = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json")
+            .Build();
+        optionsBuilder.UseSqlServer(configuration.GetConnectionString("DefaultConnection"));
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

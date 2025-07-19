@@ -3,7 +3,7 @@ using Exercise_Tracker.Models;
 
 namespace Exercise_Tracker.Repository;
 
-public class ExerciseRepository : IExerciseRepository<Exercise>
+public class ExerciseRepository<T> : IExerciseRepository<Exercise>
 {
     private readonly ExerciseDbContext _context;
 
@@ -37,14 +37,11 @@ public class ExerciseRepository : IExerciseRepository<Exercise>
     public void DeleteExercise(int id)
     {
         var exercise = GetExerciseById(id);
-        if (exercise != null)
+        if (exercise is null) { }
+        else
         {
             _context.Exercises.Remove(exercise);
             _context.SaveChanges();
-        }
-        else
-        {
-            throw new KeyNotFoundException($"Exercise with ID {id} not found.");
         }
     }
 }

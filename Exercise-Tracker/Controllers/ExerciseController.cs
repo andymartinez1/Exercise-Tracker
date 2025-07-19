@@ -1,5 +1,4 @@
-﻿using Exercise_Tracker.Models;
-using Exercise_Tracker.Services;
+﻿using Exercise_Tracker.Services;
 using Exercise_Tracker.Utils;
 using Exercise_Tracker.Views;
 
@@ -27,10 +26,10 @@ public class ExerciseController
 
         var exerciseId = Helpers.GetExerciseId(exercises);
 
-        var selectedShift = _exerciseService.GetExerciseById(exerciseId);
+        var selectedExercise = _exerciseService.GetExerciseById(exerciseId);
 
         if (exercises.Count > 0)
-            UserInterface.ShowExerciseDetails(selectedShift);
+            UserInterface.ShowExerciseDetails(selectedExercise);
         else
             return;
     }
@@ -46,10 +45,10 @@ public class ExerciseController
 
         var exerciseId = Helpers.GetExerciseId(exercises);
 
-        var shiftToUpdate = _exerciseService.GetExerciseById(exerciseId);
+        var exerciseToUpdate = _exerciseService.GetExerciseById(exerciseId);
 
         if (exercises.Count > 0)
-            _exerciseService.UpdateExercise(shiftToUpdate);
+            _exerciseService.UpdateExercise(exerciseToUpdate);
         else
             return;
     }

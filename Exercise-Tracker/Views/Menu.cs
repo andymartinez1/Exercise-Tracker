@@ -9,11 +9,6 @@ public class Menu
 {
     private readonly ExerciseController _exerciseController;
 
-    public Menu(ExerciseController exerciseController)
-    {
-        _exerciseController = exerciseController;
-    }
-
     private readonly MenuOptions[] _options =
     [
         MenuOptions.ViewAllExercises,
@@ -23,6 +18,11 @@ public class Menu
         MenuOptions.DeleteExercise,
         MenuOptions.Exit,
     ];
+
+    public Menu(ExerciseController exerciseController)
+    {
+        _exerciseController = exerciseController;
+    }
 
     public void MainMenu()
     {

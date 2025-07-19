@@ -6,18 +6,13 @@ public class Validator
 {
     public static bool IsValidDate(string date, string format)
     {
-        if (
-            !DateTime.TryParseExact(
-                date,
-                format,
-                CultureInfo.InvariantCulture,
-                DateTimeStyles.None,
-                out _
-            )
-        )
-            return false;
-
-        return true;
+        return DateTime.TryParseExact(
+            date,
+            format,
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.None,
+            out _
+        );
     }
 
     public static bool IsStartDateBeforeEndDate(string startDate, string endDate)

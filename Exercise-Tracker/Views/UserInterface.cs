@@ -18,7 +18,6 @@ public static class UserInterface
             .AddColumn("Duration")
             .AddColumn("Comments");
         foreach (var exercise in exercises)
-        {
             table.AddRow(
                 exercise.Id.ToString(),
                 exercise.StartTime.ToString("g"),
@@ -26,7 +25,6 @@ public static class UserInterface
                 $"{Math.Floor(exercise.Duration.TotalHours)} hours {exercise.Duration.TotalMinutes % 60} minutes",
                 exercise.Comments ?? "N/A"
             );
-        }
 
         table.Expand();
         AnsiConsole.Write(table);

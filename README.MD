@@ -27,19 +27,28 @@ A simple .NET Console Application for tracking exercises, built using the Reposi
    cd Exercise-Tracker
    ```
 
-3. **Restore dependencies:**
+3. **In your IDE, change the working directory to the current directory:**
+
+   ```bash
+   Example: "X:/C#/.NET-Console-Apps/Exercise-Tracker/Exercise-Tracker/"
+   ```
+
+[!TIP]
+You can right click on the project in your IDE and copy the absolute path
+
+4. **Restore dependencies:**
 
    ```bash
    dotnet restore
    ```
 
-4. **Update the database:**
+5. **Update the database:**
 
    ```bash
    dotnet ef database update
    ```
 
-5. **Run the application:**
+6. **Run the application:**
    ```bash
    dotnet run
    ```

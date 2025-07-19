@@ -1,7 +1,6 @@
 ﻿namespace Exercise_Tracker.Repository;
 
 public interface IExerciseRepository<T>
-    where T : class
 {
     List<T> GetAllExercises();
 
