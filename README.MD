@@ -33,8 +33,8 @@ A simple .NET Console Application for tracking exercises, built using the Reposi
    Example: "X:/C#/.NET-Console-Apps/Exercise-Tracker/Exercise-Tracker/"
    ```
 
-[!TIP]
-You can right click on the project in your IDE and copy the absolute path
+> [!TIP]
+> You can right click on the project in your IDE and copy the absolute path
 
 4. **Restore dependencies:**
 
